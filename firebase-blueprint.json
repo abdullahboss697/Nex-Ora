@@ -1,0 +1,107 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile with balance and referral data",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "balance": { "type": "number" },
+        "referralCode": { "type": "string" },
+        "referredBy": { "type": "string" },
+        "stats": {
+          "type": "object",
+          "properties": {
+            "views": { "type": "number" },
+            "clicks": { "type": "number" },
+            "leads": { "type": "number" }
+          }
+        },
+        "lastIp": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "balance"]
+    },
+    "Offer": {
+      "title": "Offer",
+      "description": "CPA Offer details",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "baseUrl": { "type": "string" },
+        "payout": { "type": "number" },
+        "category": { "type": "string" },
+        "isActive": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "baseUrl", "payout"]
+    },
+    "Click": {
+      "title": "Click",
+      "description": "Logs when a user clicks an offer link",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "offerId": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Lead": {
+      "title": "Lead",
+      "description": "Logs when a conversion (lead) is recorded",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "offerId": { "type": "string" },
+        "payout": { "type": "number" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Transaction": {
+      "title": "Transaction",
+      "description": "Exchange or Withdrawal request",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "type": { "type": "string", "enum": ["exchange", "withdraw"] },
+        "amount": { "type": "number" },
+        "status": { "type": "string", "enum": ["pending", "completed", "rejected"] },
+        "timestamp": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile"
+    },
+    "/offers/{offerId}": {
+      "schema": "Offer",
+      "description": "CPA Offers"
+    },
+    "/clicks/{clickId}": {
+      "schema": "Click",
+      "description": "Clicks tracking"
+    },
+    "/leads/{leadId}": {
+      "schema": "Lead",
+      "description": "Leads/Conversions tracking"
+    },
+    "/views/{viewId}": {
+      "schema": "object",
+      "description": "Offer page views"
+    },
+    "/referral_commissions/{commId}": {
+      "schema": "object",
+      "description": "Referral commission logs"
+    },
+    "/transactions/{transId}": {
+      "schema": "Transaction",
+      "description": "Financial transactions"
+    }
+  }
+}

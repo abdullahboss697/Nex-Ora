@@ -1,0 +1,13 @@
+{
+  "name": "Nexora Premium Earning Platform",
+  "description": "A professional earning and exchange platform featuring live streaming offers, CPA tasks, and a secure multi-currency exchange hub.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "Authentication",
+    "Real-time Database",
+    "Financial Transactions"
+  ]
+}
